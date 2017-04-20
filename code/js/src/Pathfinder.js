@@ -1,7 +1,5 @@
 var Path = function(startArray, endArray, board){
-  //this.star = star;
-  //this.end = end;
-  //this.graph = "";
+
   this.result = [];
   this.times = 0;
 
@@ -17,7 +15,6 @@ var Path = function(startArray, endArray, board){
     }
   }
 
-  //var grid = [[1,1,1,1],[0,0,0,1],[1,1,1,1],[0,1,1,1]];
   var graph = new Graph(grid, false),
   start = graph.grid[startArray[0]][startArray[1]],
   end = graph.grid[endArray[0]][endArray[1]],
@@ -31,18 +28,3 @@ var Path = function(startArray, endArray, board){
 
   return results;
 };
-
-/*
-var graph = new Graph(grid),
-  start = graph.grid[0][0],
-  end = graph.grid[3][1],
-  results = [],
-  times = 0;
-
-var grid = [[1,1,1,1],
-            [0,0,0,1],
-            [1,1,1,1],
-            [0,1,1,1]];
-
-  console.log("RESULT:" + astar.search(graph, start, end));
-*/

@@ -17,7 +17,8 @@ Zombie.prototype.movePath = function(path){
   var that = this;
 
   that.id = setInterval(function(){
-  var classDirection = "zombie zombie-down";
+    console.log(game.board.map.join("\n"));
+    var classDirection = "zombie zombie-down";
     console.log(index);
     that.moving = true;
     if (index < path.length && that.moving) {
@@ -35,13 +36,18 @@ Zombie.prototype.movePath = function(path){
         classDirection = "zombie zombie-left";
       }
 
+      game.board.map[that.top][that.left]="*";
+      game.board.map[that.path[index][0]][that.path[index][1]]="Z";
+      // console.log(that.path[index][1]+","+that.path[index][0]+":" +game.board.map[that.path[index][1]][that.path[index][0]]);
+      // console.log([that.top]+","+[that.left]+":" +game.board.map[that.top][that.left]);
+
       that.top=that.path[index][0];
       that.left=that.path[index][1];
       if (that.top == game.players[0].top && that.left == game.players[0].left) {
-        alert("grrrrrr you death!");
+        game.gameEnd("DEAD");
       }
-      //board.map[that.top][that.left]="*";
-      //board.map[that.top][that.left]="Z";
+      console.log(game.board.map);
+
       $(elementString).append("<div class='"+classDirection+"'></div>");
       index++;
     } else {

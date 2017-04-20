@@ -7,7 +7,6 @@ var Player = function(top, left){
   this.playerNumber = 0;
 };
 
-
 Player.prototype.moveForward = function() {
   switch(this.direction) {
     case 'N':
@@ -23,7 +22,6 @@ Player.prototype.moveForward = function() {
       this.left--;
       break;
   }
-  //alert("moveForward");
 };
 
 Player.prototype.moveUp = function() {
@@ -59,12 +57,6 @@ Player.prototype.moveRight = function() {
   }
 };
 
-Player.prototype.updatePosition = function(x,y) {
-  this.top = y;
-  this.left = x;
-};
-
-
 
 Player.prototype.move = function(moveOption) {
   preCoordY = this.top;
@@ -93,12 +85,12 @@ Player.prototype.move = function(moveOption) {
     case "*":
     case "P":
       //move
+      this.playSound();
       this.render(preCoordY, preCoordX);
       //this.render(this.top, this.left);
       //update paths
       game.updatePaths(this.top, this.left);
       //update map
-
       break;
     case "Z":
       alert("you death!!");
@@ -110,27 +102,11 @@ Player.prototype.move = function(moveOption) {
       this.left = preCoordX;
       this.direction = preDirection;
   }
-
-};
-
-
-
-
-
-Player.prototype.init = function(){
-
-};
-
-Player.prototype.checkCollides = function(){
-
-};
-
-Player.prototype.updatePosition = function(){
-
 };
 
 Player.prototype.render = function(preCoordY, preCoordX){
 
+  ion.sound.play("tap");
   var top;
   var left;
   var that = this;
@@ -149,40 +125,43 @@ Player.prototype.render = function(preCoordY, preCoordX){
           classDirection = 'player1-left';
             break;
         default:
-
       }
 
       //Limpiar casilla anterior
       var elementString = "#"+preCoordY+"-"+preCoordX;
       $(elementString).empty();
       //game.board.map[preCoordY][preCoordX] = "*";
-
-
       elementString = "#"+that.top+"-"+that.left;
       //game.board.map[that.top][that.left] = "1";
-
-/*
-      if (that.path[index][0]>that.top){
-        classDirection = "player1-down";
-      } else if (that.path[index][0]<that.top) {
-        classDirection = "player1--up";
-      } else if (that.path[index][1]>that.left) {
-        classDirection = "player1--right";
-      } else if (that.path[index][1]<that.left) {
-        classDirection = "player1--left";
-      }
-
-      that.top=that.path[index][0];
-      that.left=that.path[index][1];
-*/
       //board.map[that.top][that.left]="*";
       //board.map[that.top][that.left]="Z";
       $(elementString).append("<div class='"+classDirection+"'></div>");
+};
 
 
 
+Player.prototype.updatePosition = function(x,y) {
+  this.top = y;
+  this.left = x;
 };
 
 Player.prototype.shoot = function(){
 
+};
+
+Player.prototype.init = function(){
+
+};
+
+Player.prototype.checkCollides = function(){
+
+};
+
+Player.prototype.updatePosition = function(){
+
+};
+
+Player.prototype.playSound = function() {
+  document.getElementById("myAudio").play();
+  //$('#myAudio').play();
 };

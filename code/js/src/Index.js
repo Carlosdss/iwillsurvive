@@ -1,5 +1,6 @@
 
 var game;
+
 $(document).ready(function() {
 
   //Crear tablero
@@ -32,12 +33,51 @@ $(document).ready(function() {
           userMove = String.fromCharCode(chCode).toUpperCase();
           break;
       }
-      
       game.players[0].move(userMove);
   }
 
   function clickLevelSelector(e){
+    switch (e.currentTarget.selectedIndex) {
+      case 0:
+        game.gameTime = 60000;
+        break;
+      case 1:
+        game.gameTime = 30000;
+        break;
+      case 2:
+        game.gameTime = 40000;
+        break;
+      case 3:
+        game.gameTime = 50000;
+        break;
+      case 4:
+        game.gameTime = 60000;
+        break;
+      default:
+    }
     game.initGame(convert2grid(levels[e.currentTarget.selectedIndex]));
   }
 
+
+  function playSounds (){
+    ion.sound({
+        sounds: [
+            {
+                name: "button_tiny"
+            },
+            {
+                name: "tap",
+                volume: 0.2
+            },
+            {
+                name: "light_bulb_breaking",
+                volume: 0.3,
+                preload: false
+            }
+        ],
+        volume: 0.5,
+        path: "./../libs/ion.sound-3.0.7/sounds/",
+        preload: true
+    });
+  }
 });
