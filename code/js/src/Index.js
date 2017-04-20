@@ -14,13 +14,13 @@ $(document).ready(function() {
 
   function clickStart(e){
     //Crear tablero
-    //alert();
-    if (e.currentTarget.value == "Start") {
+    alert(e.currentTarget.innerHTML);
+    if (e.currentTarget.innerHTML == "Start") {
       game = new Game(new Board(20,30,24));
       game.initGame(convert2grid(levels[0]));
-      e.currentTarget.value = "Stop";
+      e.currentTarget.innerHTML = "Stop";
     } else {
-      e.currentTarget.value = "Start";
+      e.currentTarget.innerHTML = "Start";
     }
 
   }
