@@ -1,0 +1,92 @@
+body {
+  color:red;
+  background-color: black;
+  font-family: Helvetica;
+}
+
+#board {
+  background-color: grey;
+  width: 960px;
+  height: 640px;
+
+  */
+}
+
+.tile {
+  display:inline-block;
+  float:left;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background-color: black;
+}
+
+.currentTile {
+  background-color: red;
+}
+
+.empty {
+  background-image: url('images/FLOOR.png');
+  background-size: 100%;
+}
+.wall {
+  background-image: url('images/WALL.png');
+  background-size: 100%;
+}
+
+.zombie {
+  display:inline-block;
+  float:left;
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.zombie-left {
+  background-image: url('images/ZW.png');
+}
+.zombie-right {
+  background-image: url('images/ZE.png');
+}
+.zombie-up {
+  background-image: url('images/ZN.png');
+}
+.zombie-down {
+  background-image: url('images/ZS.png');
+}
+
+.player1-left {
+  display:inline-block;
+  background-image: url('images/P1W.png');
+  float:left;
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.player1-right {
+  display:inline-block;
+  background-image: url('images/P1E.png');
+  float:left;
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.player1-up {
+  display:inline-block;
+  background-image: url('images/P1N.png');
+  float:left;
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.player1-down {
+  display:inline-block;
+  background-image: url('images/P1S.png');
+  float:left;
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
