@@ -94,8 +94,9 @@ Player.prototype.move = function(moveOption) {
     case "P":
       //move
       this.render(preCoordY, preCoordX);
+      //this.render(this.top, this.left);
       //update paths
-
+      game.updatePaths(this.top, this.left);
       //update map
 
       break;
@@ -154,8 +155,12 @@ Player.prototype.render = function(preCoordY, preCoordX){
       //Limpiar casilla anterior
       var elementString = "#"+preCoordY+"-"+preCoordX;
       $(elementString).empty();
+      //game.board.map[preCoordY][preCoordX] = "*";
+
 
       elementString = "#"+that.top+"-"+that.left;
+      //game.board.map[that.top][that.left] = "1";
+
 /*
       if (that.path[index][0]>that.top){
         classDirection = "player1-down";

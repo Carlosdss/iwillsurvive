@@ -37,6 +37,9 @@ Zombie.prototype.movePath = function(path){
 
       that.top=that.path[index][0];
       that.left=that.path[index][1];
+      if (that.top == game.players[0].top && that.left == game.players[0].left) {
+        alert("grrrrrr you death!");
+      }
       //board.map[that.top][that.left]="*";
       //board.map[that.top][that.left]="Z";
       $(elementString).append("<div class='"+classDirection+"'></div>");

@@ -9,7 +9,7 @@ var Path = function(startArray, endArray, board){
   for (var y = 0; y < board.rows; y++ ) {
     grid[y] = [];
     for (var x = 0; x < board.cols; x++ ) {
-      if (board.map[y][x] == "*") {
+      if (board.map[y][x] == "*" || (board.map[y][x] == "1") || board.map[y][x] == "2") {
         grid[y][x] = 1;
       } else {
         grid[y][x] = 0;

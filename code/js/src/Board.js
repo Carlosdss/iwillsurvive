@@ -45,7 +45,7 @@ Board.prototype.renderZombie = function (zombie) {
 };
 
 Board.prototype.renderPlayer = function (zombie) {
-  this.map[1][3] = "P";
+  this.map[1][3] = "1";
 };
 
 

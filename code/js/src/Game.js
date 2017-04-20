@@ -28,3 +28,14 @@ Game.prototype.initGame = function (map) {
 
   //game.insertPlayer(new Player());
 };
+
+Game.prototype.updatePaths = function(playerTop, playerLeft){
+  var that = this;
+  for (i=0; i < game.zombies.length; i++) {
+    clearInterval(game.zombies[i].id);
+  }
+
+  for (i=0; i < game.zombies.length; i++) {
+    game.zombies[i].movePath((new Path([game.zombies[i].top, game.zombies[i].left], [playerTop, playerLeft], game.board)) );
+  }
+};
