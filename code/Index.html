@@ -20,7 +20,11 @@
   <title>Document</title>
 </head>
 <body>
-  <header>I WILL SURVIVE</header>
+  <audio id="tap"><source src='sounds/tap.mp3' type='audio/wav' preload='auto'/></audio>
+  <audio id="iwillsurvive"><source src='sounds/iwillsurvive.mp3' preload='auto'type='audio/wav' /></audio>
+  <audio id="dead"><source src='sounds/dead.mp3' type='audio/wav' preload='auto'/></audio>
+  <div class="content">
+  <header>I WILL SURVIVE !</header>
   <nav id="controls">
     <select name="levelSelector" id="levelSelector">
       <option value="0">Level 1</option>
@@ -29,11 +33,10 @@
       <option value="3">Level 4</option>
       <option value="4">Level 5</option>
     </select>
+    <button type="button" id="start" name="start">Start</button>
   </nav>
 
   <div id="board"></div>
-  <audio id="myAudio"><source src='sounds/tap.mp3' type='audio/wav' /></audio>
-  <audio id="iwillsurvive"><source src='sounds/iwillsurvive.mp3' type='audio/wav' /></audio>
-  <audio id="dead"><source src='sounds/dead.mp3' type='audio/wav' /></audio>
+</div>
 </body>
 </html>

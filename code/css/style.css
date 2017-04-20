@@ -1,15 +1,27 @@
+@font-face {
+  font-family: VT220;
+  font-style: normal;
+  font-weight: medium;
+  src: url("fonts/Glass_TTY_VT220.ttf");
+}
+
+
 body {
+  font-family: 'VT220';
   color:red;
   background-color: black;
-  font-family: Helvetica;
+  background-image: url('images/BG.png');
+  background-repeat: repeat;
 }
 
 #board {
+  border-radius: 3px;
+  border: 2px solid #101010;
   background-color: grey;
   width: 960px;
   height: 640px;
-
-  */
+  margin:auto;
+  box-shadow: 10px 10px 5px #110101;*/
 }
 
 .tile {
@@ -89,4 +101,25 @@ body {
   position: relative;
   width: 32px;
   height: 32px;
+}
+
+.content {
+  text-align: center;;
+}
+
+header {
+  font-size: 32px;
+  text-align: center;
+  box-shadow: 10px 10px 5px #101010;
+  background-color: rgba(30,30,30,0.8);
+  border-radius: 10px;
+}
+
+select button {
+  border-radius: 5px;
+  border: 2px solid red;
+  font-family: 'VT220';
+  /*font-size: 16px;
+
+  color: red;*/
 }

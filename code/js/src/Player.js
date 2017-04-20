@@ -85,7 +85,7 @@ Player.prototype.move = function(moveOption) {
     case "*":
     case "P":
       //move
-      this.playSound();
+      this.playSound("tap");
       this.render(preCoordY, preCoordX);
       //this.render(this.top, this.left);
       //update paths
@@ -93,11 +93,11 @@ Player.prototype.move = function(moveOption) {
       //update map
       break;
     case "Z":
-      alert("you death!!");
       //Death
+      game.gameEnd("DEAD");
       break;
     default:
-    //Stay
+      //Stay
       this.top = preCoordY;
       this.left = preCoordX;
       this.direction = preDirection;
@@ -106,7 +106,7 @@ Player.prototype.move = function(moveOption) {
 
 Player.prototype.render = function(preCoordY, preCoordX){
 
-  ion.sound.play("tap");
+  //ion.sound.play("tap");
   var top;
   var left;
   var that = this;
@@ -132,36 +132,25 @@ Player.prototype.render = function(preCoordY, preCoordX){
       $(elementString).empty();
       //game.board.map[preCoordY][preCoordX] = "*";
       elementString = "#"+that.top+"-"+that.left;
+      //game.board.map[preCoordY][preCoordX] = "*";
       //game.board.map[that.top][that.left] = "1";
-      //board.map[that.top][that.left]="*";
-      //board.map[that.top][that.left]="Z";
+
       $(elementString).append("<div class='"+classDirection+"'></div>");
 };
 
+Player.prototype.shoot = function(){};
+Player.prototype.init = function(){};
+Player.prototype.checkCollides = function(){};
+Player.prototype.updatePosition = function(){};
 
 
-Player.prototype.updatePosition = function(x,y) {
-  this.top = y;
-  this.left = x;
-};
-
-Player.prototype.shoot = function(){
-
-};
-
-Player.prototype.init = function(){
-
-};
-
-Player.prototype.checkCollides = function(){
-
-};
-
-Player.prototype.updatePosition = function(){
-
-};
-
-Player.prototype.playSound = function() {
-  document.getElementById("myAudio").play();
-  //$('#myAudio').play();
+Player.prototype.playSound = function(sound) {
+  //$('#'+sound).trigger("play");
+  var audio = document.getElementById(sound);
+  if (audio.paused === false) {
+       audio.pause();
+   } else {
+       audio.play();
+   }
+  //document.getElementById(sound).play();
 };

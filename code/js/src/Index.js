@@ -3,14 +3,27 @@ var game;
 
 $(document).ready(function() {
 
-  //Crear tablero
-  game = new Game(new Board(20,30,24));
-  game.initGame(convert2grid(levels[0]));
+
+
 
   //Eventos
   $(document).on( "keyup", keyupWindow);
   //$(".square").on("click", clickBoard);
   $('#levelSelector').change(clickLevelSelector);
+  $('#start').on("click",clickStart);
+
+  function clickStart(e){
+    //Crear tablero
+    //alert();
+    if (e.currentTarget.value == "Start") {
+      game = new Game(new Board(20,30,24));
+      game.initGame(convert2grid(levels[0]));
+      e.currentTarget.value = "Stop";
+    } else {
+      e.currentTarget.value = "Start";
+    }
+
+  }
 
   function keyupWindow(e) {
       var chCode = ('charCode' in e) ? e.charCode : e.keyCode;

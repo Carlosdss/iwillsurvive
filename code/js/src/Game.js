@@ -8,6 +8,7 @@ var Game = function(board){
   this.objects = [];
   this.gameTime = 60000;
   this.gameTimeID = null;
+  this.playOn=true
 };
 
 Game.prototype.insertZombie = function (zombie) {
@@ -60,6 +61,7 @@ Game.prototype.updatePaths = function(playerTop, playerLeft){
 Game.prototype.startGameTime = function(){
   var count = 0;
   var that = this;
+  game.updatePaths(this.players[0].top, this.players[0].left);
   this.playSound("iwillsurvive");
   that.gameTimeId = setInterval(function(time){
     if (count >= that.gameTime) {
@@ -70,32 +72,45 @@ Game.prototype.startGameTime = function(){
       count+=2000;
       that.insertZombie(new Zombie(1,1));
     }
-
   }, 2000);
 };
 
 Game.prototype.gameEnd = function(message){
   //Stop zombies
 
-  this.stopSound("iwillsurvive");
+
   var that = this;
   for (i=0; i < game.zombies.length; i++) {
     clearInterval(game.zombies[i].id);
   }
   if (message == "TIMEOUT") {
-    this.playSound("dead");
+    this.stopSound("iwillsurvive");
     alert("You have survived !!!");
     clearInterval(that.gameTimeId);
   } else if (message == "DEAD"){
+    this.stopSound("iwillsurvive");
+    this.playSound("dead");
+
     clearInterval(that.gameTimeId);
-    alert("Graaaa... You are dead!!!");
+
+    //alert("Graaaa... You are dead!!!");
   }
 };
 
+
+
+
+
 Game.prototype.playSound = function(sound){
+  var audio = document.getElementById(sound);
+  if (audio.paused === false) {
+       audio.pause();
+   } else {
+       audio.play();
+   }
   document.getElementById(sound).play();
 };
 
 Game.prototype.stopSound = function(sound){
-  document.getElementById(sound).stop();
+  document.getElementById(sound).pause();
 };

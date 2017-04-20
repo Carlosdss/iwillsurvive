@@ -8,6 +8,7 @@ var Zombie = function(top, left){
   this.path = [];
   this.moving = "moving";
   this.id = null;
+  this.pathIndex = 0;
 };
 
 Zombie.prototype.movePath = function(path){
@@ -17,11 +18,10 @@ Zombie.prototype.movePath = function(path){
   var that = this;
 
   that.id = setInterval(function(){
-    console.log(game.board.map.join("\n"));
     var classDirection = "zombie zombie-down";
-    console.log(index);
     that.moving = true;
-    if (index < path.length && that.moving) {
+    //alert(game.board.map[that.path[index][0]][that.path[index][1]]);
+    if (index < path.length && that.moving && game.board.map[that.path[index][0]][that.path[index][1]]!="Z" && path.length !==0 ) {
       var elementString = "#"+that.top+"-"+that.left;
       $(elementString).empty();
       elementString = "#"+that.path[index][0]+"-"+that.path[index][1];
@@ -44,6 +44,7 @@ Zombie.prototype.movePath = function(path){
       that.top=that.path[index][0];
       that.left=that.path[index][1];
       if (that.top == game.players[0].top && that.left == game.players[0].left) {
+        alert("Grrrrr... you're dead!!!");
         game.gameEnd("DEAD");
       }
       console.log(game.board.map);
@@ -53,5 +54,5 @@ Zombie.prototype.movePath = function(path){
     } else {
       clearInterval(that.id);
     }
-  }, 250);
+  }, 150);
 };
