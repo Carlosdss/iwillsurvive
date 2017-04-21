@@ -11,6 +11,7 @@ $(document).ready(function() {
   function clickStart(e){
     //Crear tablero
     if (e.currentTarget.innerHTML == "Start") {
+      $("#message").addClass('hide');
       game = new Game(new Board(20,30,24));
       game.initGame(convert2grid(levels[0]));
       e.currentTarget.innerHTML = "Stop";

@@ -112,6 +112,7 @@ Game.prototype.stopGame = function(gameDeadType){
   clearInterval(this.gameTimer);
   clearInterval(this.gameOverTimer);
 
+
   //Stop zombies
   var that = this;
   //Parar los intervals de los zombies
@@ -123,13 +124,18 @@ Game.prototype.stopGame = function(gameDeadType){
   if (gameDeadType == "TIMEOUT") {
     this.stopSound("iwillsurvive");
     this.playSound("ace");
-    alert("You have survived !!!");
+    document.getElementById("message").innerHTML="YOU'VE SURVIVE!!!";
+    $("#message").removeClass('hide');
   } else if (gameDeadType == "DEAD"){
     this.stopSound("iwillsurvive");
     this.playSound("dead");
+    document.getElementById("message").innerHTML="GAME OVER";
+    $("#message").removeClass('hide');
   } else if (gameDeadType == "STOP") {
     this.stopSound("iwillsurvive");
   }
+
+  document.getElementById("start").innerHTML = "Start";
 };
 
 Game.prototype.setGameTimer = function(value){

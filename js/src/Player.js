@@ -58,48 +58,50 @@ Player.prototype.moveRight = function() {
 };
 
 Player.prototype.move = function(moveOption) {
-  preCoordY = this.top;
-  preCoordX = this.left;
-  preDirection = this.direction;
+  if (document.getElementById("start").innerHTML == "Stop"){
+    preCoordY = this.top;
+    preCoordX = this.left;
+    preDirection = this.direction;
 
-  switch (moveOption) {
-    case "F":
-      this.moveUp();
-      break;
-    case "B":
-      this.moveDown();
-      break;
-    case "R":
-      this.moveRight();
-      break;
-    case "L":
-      this.moveLeft();
-      break;
-    default:
-  }
+    switch (moveOption) {
+      case "F":
+        this.moveUp();
+        break;
+      case "B":
+        this.moveDown();
+        break;
+      case "R":
+        this.moveRight();
+        break;
+      case "L":
+        this.moveLeft();
+        break;
+      default:
+    }
 
-  var tile = game.board.getItemAtPosition(this.top, this.left);
+    var tile = game.board.getItemAtPosition(this.top, this.left);
 
-  switch (tile) {
-    case "*":
-    case "P":
-      //move
-      this.playSound("walk");
-      this.render(preCoordY, preCoordX);
-      //this.render(this.top, this.left);
-      //update paths
-      game.updatePaths(this.top, this.left);
-      //update map
-      break;
-    case "Z":
-      //Death
-      game.stopGame("DEAD");
-      break;
-    default:
-      //Stay
-      this.top = preCoordY;
-      this.left = preCoordX;
-      this.direction = preDirection;
+    switch (tile) {
+      case "*":
+      case "P":
+        //move
+        this.playSound("walk");
+        this.render(preCoordY, preCoordX);
+        //this.render(this.top, this.left);
+        //update paths
+        game.updatePaths(this.top, this.left);
+        //update map
+        break;
+      case "Z":
+        //Death
+        game.stopGame("DEAD");
+        break;
+      default:
+        //Stay
+        this.top = preCoordY;
+        this.left = preCoordX;
+        this.direction = preDirection;
+    }
   }
 };
 
@@ -151,7 +153,7 @@ Player.prototype.render = function(preCoordY, preCoordX){
       //game.board.map[preCoordY][preCoordX] = "*";
       elementString = "#"+that.top+"-"+that.left;
       //game.board.map[preCoordY][preCoordX] = "*";
-      //game.board.map[that.top][that.left] = "1";
+      //game.board.map[that.top][that.left] = that.playerNumber;
 
       $(elementString).append("<div class='"+classDirection+"'></div>");
 };
