@@ -1,10 +1,10 @@
-var Player = function(top, left){
+var Player = function(top, left, playerNumber){
   this.top = top || 10;
   this.left = left || 15;
   this.direction = "S";
   this.size = 0;
   this.symbol = 0;
-  this.playerNumber = 0;
+  this.playerNumber = playerNumber;
 };
 
 Player.prototype.moveForward = function() {
@@ -57,7 +57,6 @@ Player.prototype.moveRight = function() {
   }
 };
 
-
 Player.prototype.move = function(moveOption) {
   preCoordY = this.top;
   preCoordX = this.left;
@@ -85,7 +84,7 @@ Player.prototype.move = function(moveOption) {
     case "*":
     case "P":
       //move
-      this.playSound("tap");
+      this.playSound("walk");
       this.render(preCoordY, preCoordX);
       //this.render(this.top, this.left);
       //update paths
@@ -94,7 +93,7 @@ Player.prototype.move = function(moveOption) {
       break;
     case "Z":
       //Death
-      game.gameEnd("DEAD");
+      game.stopGame("DEAD");
       break;
     default:
       //Stay
@@ -105,26 +104,45 @@ Player.prototype.move = function(moveOption) {
 };
 
 Player.prototype.render = function(preCoordY, preCoordX){
-
-  //ion.sound.play("tap");
   var top;
   var left;
   var that = this;
-  var classDirection = 'player1-down';
-      switch (that.direction) {
-        case "N":
-          classDirection = 'player1-up';
-          break;
-        case "S":
-          classDirection = 'player1-down';
-          break;
-        case "E":
-          classDirection = 'player1-right';
-          break;
-        case "W":
-          classDirection = 'player1-left';
+  var classDirection;
+
+      if (this.playerNumber===0) {
+        classDirection = 'player1-down';
+        switch (that.direction) {
+          case "N":
+            classDirection = 'player1-up';
             break;
-        default:
+          case "S":
+            classDirection = 'player1-down';
+            break;
+          case "E":
+            classDirection = 'player1-right';
+            break;
+          case "W":
+            classDirection = 'player1-left';
+              break;
+          default:
+        }
+      } else {
+        classDirection = 'player2-down';
+        switch (that.direction) {
+          case "N":
+            classDirection = 'player2-up';
+            break;
+          case "S":
+            classDirection = 'player2-down';
+            break;
+          case "E":
+            classDirection = 'player2-right';
+            break;
+          case "W":
+            classDirection = 'player2-left';
+              break;
+          default:
+        }
       }
 
       //Limpiar casilla anterior
@@ -143,14 +161,11 @@ Player.prototype.init = function(){};
 Player.prototype.checkCollides = function(){};
 Player.prototype.updatePosition = function(){};
 
-
 Player.prototype.playSound = function(sound) {
   //$('#'+sound).trigger("play");
   var audio = document.getElementById(sound);
-  if (audio.paused === false) {
-       audio.pause();
-   } else {
+  if (!audio.paused) {
        audio.play();
-   }
+     }
   //document.getElementById(sound).play();
 };

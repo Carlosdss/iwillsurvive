@@ -9,6 +9,7 @@ var Zombie = function(top, left){
   this.moving = "moving";
   this.id = null;
   this.pathIndex = 0;
+  this.speed = 150;
 };
 
 Zombie.prototype.movePath = function(path){
@@ -43,10 +44,22 @@ Zombie.prototype.movePath = function(path){
 
       that.top=that.path[index][0];
       that.left=that.path[index][1];
-      if (that.top == game.players[0].top && that.left == game.players[0].left) {
-        alert("Grrrrr... you're dead!!!");
-        game.gameEnd("DEAD");
+
+      if (game.players.length == 2) {
+        if (that.top == game.players[0].top && that.left == game.players[0].left) {
+          //Player 1 dead
+          game.stopGame("DEAD");
+        } else if (that.top == game.players[1].top && that.left == game.players[1].left) {
+          //Player 2 dead
+          game.stopGame("DEAD");
+        }
+      } else {
+        if (that.top == game.players[0].top && that.left == game.players[0].left) {
+          game.stopGame("DEAD");
+        }
+          //Player 1 dead
       }
+
       console.log(game.board.map);
 
       $(elementString).append("<div class='"+classDirection+"'></div>");
@@ -54,5 +67,5 @@ Zombie.prototype.movePath = function(path){
     } else {
       clearInterval(that.id);
     }
-  }, 150);
+  }, this.speed);
 };

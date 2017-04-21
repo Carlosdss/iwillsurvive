@@ -20,23 +20,45 @@
   <title>Document</title>
 </head>
 <body>
-  <audio id="tap"><source src='sounds/tap.mp3' type='audio/wav' preload='auto'/></audio>
+  <audio id="walk"><source src='sounds/walk.mp3' type='audio/wav' preload='auto'/></audio>
   <audio id="iwillsurvive"><source src='sounds/iwillsurvive.mp3' preload='auto'type='audio/wav' /></audio>
   <audio id="dead"><source src='sounds/dead.mp3' type='audio/wav' preload='auto'/></audio>
+  <audio id="ace"><source src='sounds/ace.m4a' type='audio/wav' preload='auto'/></audio>
   <div class="content">
-  <header>I WILL SURVIVE !</header>
-  <nav id="controls">
-    <select name="levelSelector" id="levelSelector">
-      <option value="0">Level 1</option>
-      <option value="1">Level 2</option>
-      <option value="2">Level 3</option>
-      <option value="3">Level 4</option>
-      <option value="4">Level 5</option>
-    </select>
-    <button type="button" id="start" name="start">Start</button>
-  </nav>
+  <header>
+    <div>I WILL SURVIVE !</div>
+    <nav id="controls">
+      <select name="levelSelector" id="levelSelector">
+        <option value="0">Level 1</option>
+        <option value="1">Level 2</option>
+        <option value="2">Level 3</option>
+        <option value="3">Level 4</option>
+        <option value="4">Level 5</option>
+      </select>
+      <span id="nPlayers">1 PLAYER</span>
+      <button type="button" id="start" name="start">Start</button>
+      <span id="time">0 SEC</span>
+    </nav>
+  </header>
+  <div id="board">
+      <div id="instructions">
+      <h2>INSTRUCTIONS</h2>
+      <ul>
+        <li>Press key 1 or 2 for one or two players</li>
+        <li>Player 1 move: Cursors</li>
+        <li>Player 2 move: (W A S D) keys</li>
+        <li>Press button "Start" to run!!</li>
+      </ul>
+      <br>
+      <p>You must survive the horde of zombies that will appear.</p>
+      <p>If they are two players both must survive! Because if your partner dies you will commit suicide, so ...</p>
+      <p>Each level increases by 15 seconds the time you have to survive</p>
+      <h3>Good Luck!!!</h3>
+      </div>
 
-  <div id="board"></div>
+
+
+  </div>
 </div>
 </body>
 </html>

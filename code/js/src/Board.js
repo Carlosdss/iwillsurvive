@@ -15,7 +15,7 @@ var Board = function(rows, cols, tileSize, game){
 Board.prototype.init = function(){
   this.render();
 };
-
+/*
 Board.prototype.renderZombie = function (zombie) {
   this.map[1][1] = "Z";
 };
@@ -23,7 +23,7 @@ Board.prototype.renderZombie = function (zombie) {
 Board.prototype.renderPlayer = function (zombie) {
   this.map[1][3] = "1";
 };
-
+*/
 Board.prototype.render = function(){
   var html = "";
   $("#board").empty();
@@ -44,6 +44,7 @@ Board.prototype.render = function(){
 
 };
 
+/*
 Board.prototype.clickBoard = function(e){
   var that = this;
 
@@ -59,7 +60,7 @@ Board.prototype.clickBoard = function(e){
     game.zombies[i].movePath((new Path([game.zombies[i].top, game.zombies[i].left], [top, left], game.board)) );
   }
 };
-
+*/
 
 
 //-------------------
@@ -92,7 +93,6 @@ Board.prototype.validMovement = function(x,y){
 Board.prototype.getItemAtPosition = function(x,y){
   var that = this;
   if (this.validMovement(y,x)) {
-      //alert(that.map[x][y]);
     return that.map[x][y];
   } else {
     return "OUTERLIMITS";
