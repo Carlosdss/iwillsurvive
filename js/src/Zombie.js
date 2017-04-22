@@ -9,7 +9,7 @@ var Zombie = function(top, left){
   this.moving = "moving";
   this.id = null;
   this.pathIndex = 0;
-  this.speed = 150;
+  this.speed = 200;
 };
 
 Zombie.prototype.movePath = function(path){

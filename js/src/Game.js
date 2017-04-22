@@ -10,6 +10,7 @@ var Game = function(board){
   this.zombieGenerationInterval = 2 * 1000;
   this.gameTimeID = null;
   this.playOn=true;
+  this.level = 0 ;
 };
 
 Game.prototype.insertZombie = function (zombie) {
@@ -40,12 +41,14 @@ Game.prototype.insertPlayer = function (player) {
   //$("#"+player.top+"-"+player.left).append("<div class='player1 player1-down'></div>");
 };
 
-Game.prototype.initGame = function (map) {
+Game.prototype.initGame = function (level) {
   this.clean();
+  this.gameTime = level.gametime;
+  this.level = level.id;
   this.board = new Board(20,30,24, this);
   this.zombies = [];
   this.players = [];
-  this.board.map = map;
+  this.board.map = convert2grid(levels[this.level]);
 
   this.board.init();
   this.insertZombie(new Zombie(1,1));

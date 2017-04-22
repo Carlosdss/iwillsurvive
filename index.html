@@ -6,9 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/libs/jquery-3.2.1.min.js"></script>
-  <script src="js/libs/ion.sound-3.0.7/ion.sound.min.js"></script>
-
   <script src="js/libs/astar.js"></script>
+  
   <script src="js/src/levels.js"></script>
   <script src="js/src/Zombie.js"></script>
   <script src="js/src/Pathfinder.js"></script>
@@ -20,10 +19,23 @@
   <title>Document</title>
 </head>
 <body>
-  <audio id="walk"><source src='sounds/walk.mp3' type='audio/wav' preload='auto'/></audio>
-  <audio id="iwillsurvive"><source src='sounds/iwillsurvive.mp3' preload='auto'type='audio/wav' /></audio>
-  <audio id="dead"><source src='sounds/dead.mp3' type='audio/wav' preload='auto'/></audio>
-  <audio id="ace"><source src='sounds/ace.m4a' type='audio/wav' preload='auto'/></audio>
+  <audio id="walk">
+    <source src='sounds/walk.mp3' type='audio/mpeg' preload='auto'/>
+    <source src='sounds/walk.ogg' type='audio/ogg' preload='auto'/>
+  </audio>
+  <audio id="iwillsurvive">
+    <source src='sounds/iwillsurvive.mp3' preload='auto'type='audio/mpeg' />
+    <source src='sounds/iwillsurvive.ogg' preload='auto'type='audio/ogg' />
+  </audio>
+  <audio id="dead">
+    <source src='sounds/dead.mp3' type='audio/mpeg' preload='auto'/>
+    <source src='sounds/dead.ogg' type='audio/ogg' preload='auto'/>
+  </audio>
+  <audio id="ace">
+    <source src='sounds/ace.m4a' type='audio/mp4' preload='auto'/>
+    <source src='sounds/ace.ogg' type='audio/ogg' preload='auto'/>
+  </audio>
+
   <div class="content">
     <div id="message" class="hide">mensage</div>
   <header>

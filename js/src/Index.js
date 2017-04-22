@@ -1,5 +1,6 @@
 
 var game;
+var level = {id: 0, gametime: 30000};
 
 $(document).ready(function() {
 
@@ -13,7 +14,7 @@ $(document).ready(function() {
     if (e.currentTarget.innerHTML == "Start") {
       $("#message").addClass('hide');
       game = new Game(new Board(20,30,24));
-      game.initGame(convert2grid(levels[0]));
+      game.initGame(level);
       e.currentTarget.innerHTML = "Stop";
     } else {
       e.currentTarget.innerHTML = "Start";
@@ -83,46 +84,27 @@ $(document).ready(function() {
   }
 
   function clickLevelSelector(e){
-    switch (e.currentTarget.selectedIndex) {
+
+    selection = e.currentTarget.selectedIndex;
+    level.id = selection;
+    switch (selection) {
       case 0:
-        game.gameTime = 30000;
+        level.gametime = 30000;
         break;
       case 1:
-        game.gameTime = 45000;
+        level.gametime = 45000;
         break;
       case 2:
-        game.gameTime = 60000;
+        level.gametime = 60000;
         break;
       case 3:
-        game.gameTime = 75000;
+        level.gametime = 75000;
         break;
       case 4:
-        game.gameTime = 90000;
+        level.gametime = 90000;
         break;
       default:
     }
     //game.initGame(convert2grid(levels[e.currentTarget.selectedIndex]));
-  }
-
-  function playSounds (){
-    ion.sound({
-        sounds: [
-            {
-                name: "button_tiny"
-            },
-            {
-                name: "tap",
-                volume: 0.2
-            },
-            {
-                name: "light_bulb_breaking",
-                volume: 0.3,
-                preload: false
-            }
-        ],
-        volume: 0.5,
-        path: "./../libs/ion.sound-3.0.7/sounds/",
-        preload: true
-    });
   }
 });
