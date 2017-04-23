@@ -15,7 +15,6 @@ var Game = function(board){
 
 Game.prototype.insertZombie = function (zombie) {
   this.zombies.push(zombie);
-
   var top;
   var left;
   for (i=0; i < this.zombies.length; i++) {
@@ -27,25 +26,30 @@ Game.prototype.insertZombie = function (zombie) {
 
 Game.prototype.insertPlayer = function (player) {
   this.players.push(player);
-  var top;
-  var left;
+  var currentTop, currentLeft, positionTop, positionLeft;
   for (i=0; i < this.players.length; i++) {
-    top = this.players[i].top;
-    left = this.players[i].left;
+    currentTop = this.players[i].top;
+    currentLeft = this.players[i].left;
+    positionTop = currentTop * this.board.tileSize;
+    positionLeft = currentLeft * this.board.tileSize;
     if (this.players[i].playerNumber === 0){
-      $("#"+top+"-"+left).append("<div class='player1-down'></div>");
+      $("#board").append("<div id='player1' class='player player1-down'></div>");
+      $("#player1").css({left: positionLeft, top:positionTop});
+      this.board.map[currentTop][currentLeft] = this.players[i].playerNumber;
     } else {
-      $("#"+top+"-"+left).append("<div class='player2-down'></div>");
+      $("#board").append("<div id='player2' class='player player2-down'></div>");
+      $("#player2").css({left: positionLeft, top:positionTop});
+      this.board.map[currentTop][currentLeft] = this.players[i].playerNumber;
     }
   }
-  //$("#"+player.top+"-"+player.left).append("<div class='player1 player1-down'></div>");
+
 };
 
 Game.prototype.initGame = function (level) {
   this.clean();
   this.gameTime = level.gametime;
   this.level = level.id;
-  this.board = new Board(20,30,24, this);
+  this.board = new Board(20,30,32,this);
   this.zombies = [];
   this.players = [];
   this.board.map = convert2grid(levels[this.level]);
@@ -54,23 +58,23 @@ Game.prototype.initGame = function (level) {
   this.insertZombie(new Zombie(1,1));
 
   if (document.getElementById('nPlayers').innerHTML=="2 PLAYERS") {
-    this.insertPlayer(new Player(10,15,0));
-    this.insertPlayer(new Player(10,14,1));
+    this.insertPlayer(new Player(11,15,0));
+    this.insertPlayer(new Player(11,14,1));
   } else {
-    this.insertPlayer(new Player(10,15,0));
+    this.insertPlayer(new Player(11,15,0));
   }
   this.startGameTime();
+  console.log(this.board.map.toString());
 };
 
-Game.prototype.updatePaths = function(playerTop, playerLeft){
+Game.prototype.updatePaths = function(){
   var that = this;
   for (i=0; i < game.zombies.length; i++) {
     clearInterval(game.zombies[i].id);
   }
-
   for (i=0; i < game.zombies.length; i++) {
-    var targetPlayer = Math.floor(Math.random() * game.players.length);
-    game.zombies[i].movePath((new Path([game.zombies[i].top, game.zombies[i].left], [playerTop, playerLeft], game.board)) );
+    var targetPlayer = game.players[Math.floor(Math.random() * game.players.length)];
+    game.zombies[i].movePath((new Path([game.zombies[i].top, game.zombies[i].left], [targetPlayer.top, targetPlayer.left], game.board)) );
   }
 };
 
@@ -78,16 +82,15 @@ Game.prototype.startGameTime = function(){
   var count = 0;
   var that = this;
 
-  this.playSound("ace");
+  this.stopSound("ace");
   this.playSound("iwillsurvive");
 
   document.getElementById("time").innerHTML = (that.gameTime / 1000);
   game.updatePaths(this.players[0].top, this.players[0].left);
 
   this.gameOverTimer = setInterval(function(){
+    //Call function stopGame, winning
     that.stopGame("TIMEOUT");
-    console.log("TIMEOUT. GAME OVER");
-    // LLAMAR A LA FUNCION GAME OVER
   },this.gameTime);
 
   //Start game
@@ -107,6 +110,7 @@ Game.prototype.resetTimer = function(){
   this.gameTimer = setInterval(function(){
     that.setGameTimer(gameTime/1000);
     gameTime -= timerSpeed;
+
   }, timerSpeed);
 };
 
@@ -115,10 +119,8 @@ Game.prototype.stopGame = function(gameDeadType){
   clearInterval(this.gameTimer);
   clearInterval(this.gameOverTimer);
 
-
-  //Stop zombies
   var that = this;
-  //Parar los intervals de los zombies
+  //Stop zombies intervals
   for (i=0; i < game.zombies.length; i++) {
     clearInterval(game.zombies[i].id);
   }
@@ -136,43 +138,31 @@ Game.prototype.stopGame = function(gameDeadType){
     $("#message").removeClass('hide');
   } else if (gameDeadType == "STOP") {
     this.stopSound("iwillsurvive");
+    this.stopSound("ace");
   }
-
   document.getElementById("start").innerHTML = "Start";
 };
 
 Game.prototype.setGameTimer = function(value){
-  document.getElementById("time").innerHTML = parseInt(value) +" SEC";
+  document.getElementById("time").innerHTML = parseInt(value) + " SEC";
 };
-
 
 Game.prototype.clean = function(sound){
   for (var z=this.zombies.length-1; z===0; z--){
     this.zombies[z].push();
   }
-  console.log(this.zombies);
   for (var p=this.players.length-1; p===0; p--){
     this.players[p].push();
   }
-  console.log(this.players);
-  //this.board=null;
   $("#board").empty();
 };
 
 Game.prototype.playSound = function(sound){
   var audio = document.getElementById(sound);
-  if (audio.paused === false) {
-       audio.pause();
-   } else {
-       audio.play();
-   }
-  //document.getElementById(sound).play();
+  if (audio.paused) audio.play();
 };
 
 Game.prototype.stopSound = function(sound){
   var audio = document.getElementById(sound);
-  if (!audio.paused) {
-    document.getElementById(sound).pause();
-  }
-
+  if (!audio.paused) audio.pause();
 };

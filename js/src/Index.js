@@ -13,7 +13,7 @@ $(document).ready(function() {
     //Crear tablero
     if (e.currentTarget.innerHTML == "Start") {
       $("#message").addClass('hide');
-      game = new Game(new Board(20,30,24));
+      game = new Game(new Board(20,30,32));
       game.initGame(level);
       e.currentTarget.innerHTML = "Stop";
     } else {
