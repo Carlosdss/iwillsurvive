@@ -3,13 +3,14 @@ var Zombie = function(top, left){
   this.name="Z";
   this.top = top;
   this.left = left;
-  this.size = 24;
+  this.size = 32;
   this.symbol = 0;
   this.path = [];
   this.moving = "moving";
   this.id = null;
   this.pathIndex = 0;
-  this.speed = 150;
+  this.speed = 250;
+  this.zombieID = 0 ;
 };
 
 Zombie.prototype.movePath = function(path){
@@ -21,11 +22,7 @@ Zombie.prototype.movePath = function(path){
   that.id = setInterval(function(){
     var classDirection = "zombie zombie-down";
     that.moving = true;
-    //alert(game.board.map[that.path[index][0]][that.path[index][1]]);
     if (index < path.length && that.moving && game.board.map[that.path[index][0]][that.path[index][1]]!="Z" && path.length !==0 ) {
-      var elementString = "#"+that.top+"-"+that.left;
-      $(elementString).empty();
-      elementString = "#"+that.path[index][0]+"-"+that.path[index][1];
 
       if (that.path[index][0]>that.top){
         classDirection = "zombie zombie-down";
@@ -39,12 +36,11 @@ Zombie.prototype.movePath = function(path){
 
       game.board.map[that.top][that.left]="*";
       game.board.map[that.path[index][0]][that.path[index][1]]="Z";
-      // console.log(that.path[index][1]+","+that.path[index][0]+":" +game.board.map[that.path[index][1]][that.path[index][0]]);
-      // console.log([that.top]+","+[that.left]+":" +game.board.map[that.top][that.left]);
 
       that.top=that.path[index][0];
       that.left=that.path[index][1];
 
+      //Check collide
       if (game.players.length == 2) {
         if (that.top == game.players[0].top && that.left == game.players[0].left) {
           //Player 1 dead
@@ -55,14 +51,13 @@ Zombie.prototype.movePath = function(path){
         }
       } else {
         if (that.top == game.players[0].top && that.left == game.players[0].left) {
+          //Player 1 dead
           game.stopGame("DEAD");
         }
-          //Player 1 dead
       }
-
-      console.log(game.board.map);
-
-      $(elementString).append("<div class='"+classDirection+"'></div>");
+      //Render Zombie
+      $("#Z"+that.zombieID).removeClass().addClass(classDirection);
+      $("#Z"+that.zombieID).css({left: that.left*game.board.tileSize, top:that.top*game.board.tileSize});
       index++;
     } else {
       clearInterval(that.id);
