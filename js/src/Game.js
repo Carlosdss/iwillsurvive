@@ -15,34 +15,28 @@ var Game = function(board){
 
 Game.prototype.insertZombie = function (zombie) {
   this.zombies.push(zombie);
-  var top;
-  var left;
-  for (i=0; i < this.zombies.length; i++) {
-    top = this.zombies[i].top;
-    left = this.zombies[i].left;
-    $("#"+top+"-"+left).append("<div class='zombie zombie-right'></div>");
-  }
+  zombie.zombieID = this.zombies.length -1;
+  console.log(this.zombies.toString());
+  var top = zombie.top;
+  var left = zombie.left;
+  var id = zombie.zombieID;
+  $("#board").append("<div id='Z"+ id + "' class='zombie zombie-right'></div>");
+  $("#Z"+id).css({left: zombie.left*this.board.tileSize, top:zombie.top*this.board.tileSize});
 };
 
 Game.prototype.insertPlayer = function (player) {
   this.players.push(player);
-  var currentTop, currentLeft, positionTop, positionLeft;
-  for (i=0; i < this.players.length; i++) {
-    currentTop = this.players[i].top;
-    currentLeft = this.players[i].left;
-    positionTop = currentTop * this.board.tileSize;
-    positionLeft = currentLeft * this.board.tileSize;
-    if (this.players[i].playerNumber === 0){
-      $("#board").append("<div id='player1' class='player player1-down'></div>");
-      $("#player1").css({left: positionLeft, top:positionTop});
-      this.board.map[currentTop][currentLeft] = this.players[i].playerNumber;
-    } else {
-      $("#board").append("<div id='player2' class='player player2-down'></div>");
-      $("#player2").css({left: positionLeft, top:positionTop});
-      this.board.map[currentTop][currentLeft] = this.players[i].playerNumber;
-    }
+  var positionTop = player.top * this.board.tileSize;
+  var positionLeft = player.left * this.board.tileSize;
+  if (player.playerNumber === 0){
+    $("#board").append("<div id='player1' class='player player1-down'></div>");
+    $("#player1").css({left: positionLeft, top:positionTop});
+    this.board.map[player.top][player.left] = player.playerNumber;
+  } else {
+    $("#board").append("<div id='player2' class='player player2-down'></div>");
+    $("#player2").css({left: positionLeft, top:positionTop});
+    this.board.map[player.top][player.left] = player.playerNumber;
   }
-
 };
 
 Game.prototype.initGame = function (level) {
@@ -69,12 +63,27 @@ Game.prototype.initGame = function (level) {
 
 Game.prototype.updatePaths = function(){
   var that = this;
-  for (i=0; i < game.zombies.length; i++) {
-    clearInterval(game.zombies[i].id);
+  for (i=0; i < that.zombies.length; i++) {
+    clearInterval(that.zombies[i].id);
   }
-  for (i=0; i < game.zombies.length; i++) {
-    var targetPlayer = game.players[Math.floor(Math.random() * game.players.length)];
-    game.zombies[i].movePath((new Path([game.zombies[i].top, game.zombies[i].left], [targetPlayer.top, targetPlayer.left], game.board)) );
+  for (i=0; i < that.zombies.length; i++) {
+
+    if (that.players.length == 1) {
+      that.zombies[i].movePath(new Path([that.zombies[i].top, that.zombies[i].left], [that.players[0].top, that.players[0].left], game.board));
+    } else {
+      var path2Player1 = new Path([that.zombies[i].top, that.zombies[i].left], [that.players[0].top, that.players[0].left], game.board);
+      var path2Player2 = new Path([that.zombies[i].top, that.zombies[i].left], [that.players[1].top, that.players[1].left], game.board);
+        //Nearest strategy
+      if (path2Player1 < path2Player2) {
+        that.zombies[i].movePath(path2Player1);
+      } else if (path2Player2 < path2Player1) {
+        that.zombies[i].movePath(path2Player2);
+      } else {
+        //Random Path Strategy
+        var targetPlayer = that.players[Math.floor(Math.random() * that.players.length)];
+        that.zombies[i].movePath((new Path([that.zombies[i].top, that.zombies[i].left], [targetPlayer.top, targetPlayer.left], game.board)) );
+      }
+    }
   }
 };
 
@@ -100,6 +109,7 @@ Game.prototype.startGameTime = function(){
     if (that.board.map[1][1]=="*") {
       that.insertZombie(new Zombie(1,1));
     }
+    that.updatePaths();
   },this.zombieGenerationInterval);
 };
 
@@ -149,10 +159,10 @@ Game.prototype.setGameTimer = function(value){
 
 Game.prototype.clean = function(sound){
   for (var z=this.zombies.length-1; z===0; z--){
-    this.zombies[z].push();
+    this.zombies[z].pull();
   }
   for (var p=this.players.length-1; p===0; p--){
-    this.players[p].push();
+    this.players[p].pull();
   }
   $("#board").empty();
 };

@@ -43,8 +43,7 @@ body {
 }
 
 .zombie {
-  margin: 0px;
-  float:left;
+  z-index: 20;
   position: absolute;
   width: 32px;
   height: 32px;

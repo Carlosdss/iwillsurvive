@@ -1,6 +1,6 @@
 var Player = function(top, left, playerNumber){
-  this.top = top;// || 11;
-  this.left = left;// || 15;
+  this.top = top;   // || 11;
+  this.left = left; // || 15;
   this.direction = "S";
   this.size = 0;
   this.symbol = 0;
@@ -17,35 +17,23 @@ Player.prototype.moveForward = function() {
 };
 
 Player.prototype.moveUp = function() {
-    if (this.direction == "N") {
-      this.moveForward();
-    } else {
-      this.direction="N";
-    }
+  if (this.direction == "N")  this.moveForward();
+  else                        this.direction="N";
 };
 
 Player.prototype.moveDown = function() {
-  if (this.direction == "S") {
-    this.moveForward();
-  } else {
-    this.direction="S";
-  }
+  if (this.direction == "S")  this.moveForward();
+  else                        this.direction="S";
 };
 
 Player.prototype.moveLeft = function() {
-    if (this.direction == "W") {
-      this.moveForward();
-    } else {
-      this.direction="W";
-    }
+  if (this.direction == "W")  this.moveForward();
+  else                        this.direction="W";
 };
 
 Player.prototype.moveRight = function() {
-  if (this.direction == "E") {
-    this.moveForward();
-  } else {
-    this.direction="E";
-  }
+  if (this.direction == "E")  this.moveForward();
+  else                        this.direction="E";
 };
 
 Player.prototype.move = function(moveOption) {
@@ -70,21 +58,21 @@ Player.prototype.move = function(moveOption) {
         case "*":
         case this.playerNumber:
           this.playSound("walk");
-          // if (this.direction == preDirection) {
+            // Clean previous position
           game.board.map[preCoordY][preCoordX] = "*";
           game.board.map[this.top][this.left] = this.playerNumber;
-          // }
+            // Render
           this.render(preCoordY, preCoordX, preDirection);
-          //update paths
-          game.updatePaths();
-          //update map
+            // Update paths
+            //game.updatePaths();
+            // Update map
           break;
         case "Z":
-          //Death
+            // Death
           game.stopGame("DEAD");
           break;
         default:
-          //Stay
+            //Stay
           this.top = preCoordY;
           this.left = preCoordX;
           this.direction = preDirection;
@@ -135,25 +123,16 @@ Player.prototype.render = function(preCoordY, preCoordX, preDirection){
         $("#player2").removeClass(classPreDirection).addClass(classDirection);
         $("#player2").css({left: this.left*game.board.tileSize, top:this.top*game.board.tileSize});
       }
-
-      //Limpiar casilla anterior
-      if (that.direction == preDirection) {
-        //game.board.map[preCoordY][preCoordX] = "*";
-        //game.board.map[that.top][that.left] = that.playerNumber;
-      }
       console.log(game.board.map.toString());
 };
 
-Player.prototype.shoot = function(){};
-Player.prototype.init = function(){};
-Player.prototype.checkCollides = function(){};
-Player.prototype.updatePosition = function(){};
-
 Player.prototype.playSound = function(sound) {
-  //$('#'+sound).trigger("play");
   var audio = document.getElementById(sound);
-  if (audio.paused) {
-       audio.play();
-     }
-  //document.getElementById(sound).play();
+  if (audio.paused) audio.play();
 };
+
+// No usefull functions at this stage
+// Player.prototype.shoot = function(){};
+// Player.prototype.init = function(){};
+// Player.prototype.checkCollides = function(){};
+// Player.prototype.updatePosition = function(){};

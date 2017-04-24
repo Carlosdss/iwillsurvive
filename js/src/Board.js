@@ -36,18 +36,15 @@ Board.prototype.render = function(){
 
 Board.prototype.validMovement = function(y,x){
   var that = this;
-  return ( ( ((x>= 0) && (x < that.cols)) && ((y>=0) && (y < that.rows))) && (that.map[y][x] === "*") ) ? true : false;
+  return ((((x>=0) && (x<that.cols)) && ((y>=0) && (y<that.rows))) && (that.map[y][x] === "*")) ? true : false;
 };
 
 Board.prototype.getItemAtPosition = function(y,x){
   var that = this;
-  if (this.validMovement(y,x)) {
-    return that.map[y][x];
-  } else {
-    return "OUTERLIMITS";
-  }
+  return this.validMovement(y,x) ? that.map[y][x] : "OUTERLIMITS";
 };
 
+// No usefull functions for now
 
 // Board.prototype.placeItemAtEmpty = function(item,x,y){
 //   if (this.map[y][x] == "*") {
@@ -64,7 +61,6 @@ Board.prototype.getItemAtPosition = function(y,x){
 // Board.prototype.removeItem = function(x,y){
 //   this.map[y][x] = "*";
 // };
-
 
 /*-------evento click para movil
 Board.prototype.clickBoard = function(e){
