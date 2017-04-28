@@ -2,7 +2,15 @@
 
 ##DESCRIPCIÓN
 Los Jugadores son supervivientes a un holocausto zombie, y están atrapados en un edificio.
+Deben sobrevivir a la contínua oleada de zombies.
 
+###Move
+
+- Player 1: Cursors.
+- Player 2: W,S,A,D.
+
+
+##TODO
 
 ###Weapons
 - *SMG:* Dispara ráfagas rápidas de 3 balas. Matando de 1 en 1.
@@ -11,5 +19,6 @@ Los Jugadores son supervivientes a un holocausto zombie, y están atrapados en u
 
 ###Move
 
-- Player 1: Cursors and SpaceBar for shoot.
-- Player 2: W,S,A,D and Q for shoot.
+- Player 1: SpaceBar for shoot.
+- Player 2: Q for shoot.
+
